@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-languages',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./languages.component.css']
 })
 export class LanguagesComponent implements OnInit {
+  title = 'Languages';
+  subTitle = 'List';
+  languageList = null;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.http.get('/api/languages').subscribe(res => {
+      this.languageList = res;
+    });
   }
-
 }

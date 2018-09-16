@@ -1,3 +1,20 @@
-<p>
-  languages works!
-</p>
+<h3>
+  {{ title }}
+  <small class="text-muted">{{ subTitle }}</small>
+</h3>
+
+<table class="table" *ngIf="languageList">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let language of languageList">
+      <td>{{ language.id }}</td>
+      <td>{{ language.name }}</td>
+    </tr>
+  </tbody>
+</table>
