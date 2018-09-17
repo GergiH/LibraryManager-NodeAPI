@@ -3,7 +3,7 @@
   <small class="text-muted">{{ subTitle }}</small>
 </h3>
 
-<table class="table" *ngIf="languageList">
+<table class="table table-hover" *ngIf="languageList">
   <thead>
     <tr>
       <th>Id</th>
@@ -15,6 +15,42 @@
     <tr *ngFor="let language of languageList">
       <td>{{ language.id }}</td>
       <td>{{ language.name }}</td>
+      <td class="text-right">
+        <button type="button" class="btn btn-primary btn-sm btn-text" data-toggle="modal" data-target="#editModal"
+          (click)="editLanguage(language.id)">
+          edit
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{ languageToEdit?.id }} - {{ languageToEdit?.name }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>Id</label>
+            <input type="text" class="form-control" [value]="languageToEdit?.id" (input)="languageToEdit.id = $event.target.value">
+          </div>
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" [value]="languageToEdit?.name" (input)="languageToEdit.name = $event.target.value">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-text" (click)="onSave(languageToEdit?._id)">save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="snackbar-save-success" [ngClass]="successClass">Successfully saved.</div>
